@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Canvas, useLoader } from "@react-three/fiber";
+import "./App.css";
+import { OrbitControls, Environment } from "@react-three/drei";
+import { Minecraft } from "./Minecraft";
+import { Suspense, useState } from "react";
 
 function App() {
+  const [cofres, setCofres] = useState(true);
+  const [antorchas, setAntorchas] = useState(true);
+
+  console.log(cofres);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button className="quitar-cofres" onClick={() => setCofres(!cofres)}>
+        Quitar cofres
+      </button>
+      <button className="quitar-cofres" onClick={() => setAntorchas(!antorchas)}>
+        Quitar antorchas
+      </button>
+      <Canvas>
+        <Suspense>
+          <Minecraft cofres={cofres} antorchas={antorchas} />
+          <Environment files="./hdr/decor_shop_1k.hdr" />
+        </Suspense>
+        <OrbitControls />
+      </Canvas>
     </div>
   );
 }
